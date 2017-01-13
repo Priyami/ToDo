@@ -15,8 +15,9 @@ class ToDoTableViewController: UITableViewController {
     
     var dbRef:FIRDatabaseReference!
     var todos  = [ToDo]()
-    var selectedTitle:String?
-    var selectedSubTitle:String?
+    
+    var selectedRowText: String?
+    var selectedRowSubText: String?
     
 
     override func viewDidLoad() {
@@ -57,6 +58,8 @@ class ToDoTableViewController: UITableViewController {
     
     
     @IBAction func presentTaskView(sender: AnyObject) {
+        
+        
         performSegueWithIdentifier("TaskVC", sender: nil)
     }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -82,6 +85,44 @@ class ToDoTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
             return 1
     }
+    
+ override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+             print(indexPath.row)
+    let todo = todos[indexPath.row]
+        print(todo.content)
+        print(todo.setTime)
+        self.selectedRowText = todo.content
+         self.selectedRowSubText = todo.setTime
+     _ = tableView.indexPathForSelectedRow!
+    if let _ = tableView.cellForRowAtIndexPath(indexPath){
+        
+      performSegueWithIdentifier("TaskVC", sender: self)
+    }
+    }
+   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    
+    
+      if  (segue.identifier! == "TaskVC"&&(self.tableView.indexPathForSelectedRow) != nil) {
+       
+        if let guest = segue.destinationViewController as? TaskViewController{
+            let path = self.tableView.indexPathForSelectedRow
+            let cell = self.tableView.cellForRowAtIndexPath(path!)
+        
+          guest.selectedTitle = cell?.textLabel?.text
+            guest.selectedSubTitle = cell?.detailTextLabel?.text
+        }
+      }else {
+        if let guest = segue.destinationViewController as? TaskViewController{
+            //let path = self.tableView.indexPathForSelectedRow
+            //let cell = self.tableView.cellForRowAtIndexPath(path!)
+            
+            guest.selectedTitle = " "
+            guest.selectedSubTitle = " "
+        }
+    }
+    }
+    
+
 
 
     
@@ -96,7 +137,7 @@ class ToDoTableViewController: UITableViewController {
             todo.itemRef?.removeValue()
             
         }
-            }
+     }
     
     
 

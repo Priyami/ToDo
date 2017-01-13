@@ -12,20 +12,22 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class TaskViewController: UIViewController{
+    var selectedTitle:String?
+    var selectedSubTitle:String?
  var dbRef:FIRDatabaseReference!
     var todos  = [ToDo]()
     
     @IBOutlet var TaskView: UIView!
    
 
+   
     @IBOutlet var setTime: UITextField!
     
     
     @IBOutlet var taskDesc: UITextField!
    
-    @IBOutlet var createdBy: UITextField!
     
-   
+       
     @IBOutlet var addButton: UIButton!
     @IBOutlet var picker: UIDatePicker!
     var data = NSDate()
@@ -47,8 +49,9 @@ class TaskViewController: UIViewController{
         
         super.viewDidLoad()
         picker.hidden = true
-          let cuUser = FIRAuth.auth()?.currentUser
         
+        taskDesc.text = selectedTitle
+        self.setTime.text = selectedSubTitle
         dbRef = FIRDatabase.database().reference().child("todo-items")
 
         
