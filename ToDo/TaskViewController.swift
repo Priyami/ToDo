@@ -30,25 +30,25 @@ class TaskViewController: UIViewController{
        
     @IBOutlet var addButton: UIButton!
     @IBOutlet var picker: UIDatePicker!
-    var data = NSDate()
-    @IBAction func datePickerAction(sender: AnyObject) {
+    var data = Date()
+    @IBAction func datePickerAction(_ sender: AnyObject) {
         
-        let  dateFormatter = NSDateFormatter()
+        let  dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-YYYY hh:mm a"
-        let  strDate = dateFormatter.stringFromDate(picker.date)
+        let  strDate = dateFormatter.string(from: picker.date)
         self.setTime.text = strDate
         
 
     }
-    @IBAction func showPicker(sender: AnyObject) {
-       picker.hidden = false
+    @IBAction func showPicker(_ sender: AnyObject) {
+       picker.isHidden = false
         
         
     }
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        picker.hidden = true
+        picker.isHidden = true
         
         taskDesc.text = selectedTitle
         self.setTime.text = selectedSubTitle
@@ -59,14 +59,14 @@ class TaskViewController: UIViewController{
         // Do any additional setup after loading the view.
     }
 
-    @IBAction func addTask(sender: AnyObject) {
+    @IBAction func addTask(_ sender: AnyObject) {
         
         let todoContent = taskDesc.text
         //let todoUser = createdBy.text
         let reminderTime = setTime.text
         
             let todo = ToDo(content: todoContent!,setTime: reminderTime! )
-            let todoRef = self.dbRef.child(todoContent!.lowercaseString)
+            let todoRef = self.dbRef.child(todoContent!.lowercased())
             todoRef.setValue(todo.toAnyObject())
       
         
@@ -77,9 +77,9 @@ class TaskViewController: UIViewController{
            }
     
     
-    private func notificationSetter(sender: UIButton, taskTypeId: String, fireDate: NSDate){
+    fileprivate func notificationSetter(_ sender: UIButton, taskTypeId: String, fireDate: Date){
         
-        if sender.touchInside == true{
+        if sender.isTouchInside == true{
             
             if LocalNotificationHelper().checkNotificationEnabled() == true{
                 
@@ -100,26 +100,26 @@ class TaskViewController: UIViewController{
             }
         }
     
-    func fixNotificationDate(dateToFix: NSDate) ->NSDate{
+    func fixNotificationDate(_ dateToFix: Date) ->Date{
         
-        let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        var dateFire = NSDate()
-        let fireComponents = calendar.components([.Day,.Month,.Year,.Hour,.Minute], fromDate: dateToFix)
+        let calendar: Calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        var dateFire = Date()
+        var fireComponents = (calendar as NSCalendar).components([.day,.month,.year,.hour,.minute], from: dateToFix)
         
         fireComponents.second = 0
-        fireComponents.timeZone = NSTimeZone.localTimeZone()
-        dateFire = calendar.dateFromComponents(fireComponents)!
+        (fireComponents as NSDateComponents).timeZone = TimeZone.autoupdatingCurrent
+        dateFire = calendar.date(from: fireComponents)!
         return dateFire
     }
     
     
-    private func displayNotificationDisabled(){
+    fileprivate func displayNotificationDisabled(){
         
-        let alertController = UIAlertController(title: "Notifications disabled for ToDo App", message: "Please enable Notifications in Settings -> Notifications -? ToDo", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: "Notifications disabled for ToDo App", message: "Please enable Notifications in Settings -> Notifications -? ToDo", preferredStyle: .alert)
         
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: .Default, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
         
     }
     override func didReceiveMemoryWarning() {

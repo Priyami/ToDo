@@ -13,11 +13,11 @@ class LocalNotificationHelper: NSObject {
     
     func checkNotificationEnabled() -> Bool{
         
-        guard let settings = UIApplication.sharedApplication().currentUserNotificationSettings() else
+        guard let settings = UIApplication.shared.currentUserNotificationSettings else
         
         { return false }
         
-        if settings.types == .None {
+        if settings.types == UIUserNotificationType() {
             
             return false
             
@@ -29,13 +29,13 @@ class LocalNotificationHelper: NSObject {
         
     }
     
-    func checkNotificationExists(taskTypeId: String) -> Bool {
+    func checkNotificationExists(_ taskTypeId: String) -> Bool {
         
         
-        for notification in UIApplication.sharedApplication().scheduledLocalNotifications! as
+        for notification in UIApplication.shared.scheduledLocalNotifications! as
             [UILocalNotification] {
                 
-                if(notification.userInfo!["taskObjectId"] as! String == String(taskTypeId)) {
+                if(notification.userInfo!["taskObjectId"] as? String == String(taskTypeId)) {
                     
                     return true
                 }
@@ -45,7 +45,7 @@ class LocalNotificationHelper: NSObject {
         
     }
     
-    func scheduleLocal(taskTypeId: String, alertDate: NSDate){
+    func scheduleLocal(_ taskTypeId: String, alertDate: Date){
        
         print("Date and Time Came\(alertDate)")
         let notification = UILocalNotification()
@@ -54,22 +54,22 @@ class LocalNotificationHelper: NSObject {
         notification.alertAction = "Due : \(alertDate)"
         notification.soundName = UILocalNotificationDefaultSoundName
         notification.userInfo = ["taskObjeckId": taskTypeId]
-        UIApplication.sharedApplication().scheduleLocalNotification(notification)
-        UIApplication.sharedApplication().applicationIconBadgeNumber = ++badgeCount
+        UIApplication.shared.scheduleLocalNotification(notification)
+        UIApplication.shared.applicationIconBadgeNumber = badgeCount +  1
         print("Notification set for taskTypeId: \(taskTypeId) at \(alertDate)")
         
         
     }
     
-    func removeNotification(taskTypeId: String){
+    func removeNotification(_ taskTypeId: String){
         
-        for notification in UIApplication.sharedApplication().scheduledLocalNotifications! as
+        for notification in UIApplication.shared.scheduledLocalNotifications! as
             [UILocalNotification]{
                 
-                if(notification.userInfo!["taskObjectId"] as! String == String(taskTypeId)){
-                UIApplication.sharedApplication().cancelLocalNotification(notification)
+                if(notification.userInfo!["taskObjectId"] as? String == String(taskTypeId)){
+                UIApplication.shared.cancelLocalNotification(notification)
                 print("Notification deleted for TaskTypeID: \(taskTypeId)")
-                UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+                UIApplication.shared.applicationIconBadgeNumber = 0
                 break
                 
                 }
@@ -80,7 +80,7 @@ class LocalNotificationHelper: NSObject {
         
         var localNotify:[UILocalNotification]?
         
-        for notification in UIApplication.sharedApplication().scheduledLocalNotifications! as
+        for notification in UIApplication.shared.scheduledLocalNotifications! as
             [UILocalNotification]{
                 localNotify?.append(notification)
         }
@@ -94,7 +94,7 @@ class LocalNotificationHelper: NSObject {
         
         print("List of notifications currently set:-")
         
-        for notification in UIApplication.sharedApplication().scheduledLocalNotifications! as [UILocalNotification] {
+        for notification in UIApplication.shared.scheduledLocalNotifications! as [UILocalNotification] {
             
             print("\(notification)")
             

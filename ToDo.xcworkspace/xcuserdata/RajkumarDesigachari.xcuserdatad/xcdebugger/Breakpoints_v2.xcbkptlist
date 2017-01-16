@@ -16,7 +16,7 @@
             startingLineNumber = "48"
             endingLineNumber = "48"
             landmarkName = "scheduleLocal(_:alertDate:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -32,7 +32,7 @@
             startingLineNumber = "51"
             endingLineNumber = "51"
             landmarkName = "scheduleLocal(_:alertDate:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -48,7 +48,7 @@
             startingLineNumber = "59"
             endingLineNumber = "59"
             landmarkName = "scheduleLocal(_:alertDate:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

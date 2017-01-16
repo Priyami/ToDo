@@ -33,28 +33,29 @@ struct ToDo{
         key =  snapshot.key
         itemRef = snapshot.ref
         
-        if let todoContent = snapshot.value!["content"] as? String {
+        let value = snapshot.value as? NSDictionary
+        if let todocontent = value?["content"] as? String {
             
-            content = todoContent
+            content = todocontent
         }
         else{
             
             content = ""
         }
-        if let todoTime = snapshot.value!["setTime"] as? String {
+        if let todoTime = value?["setTime"] as? String {
+            
             setTime = todoTime
         }
         else{
+            
             setTime = ""
         }
         
         
-        
     }
     
-    func toAnyObject() -> AnyObject {
-        
-        return ["content": content, "setTime": setTime]
+    func toAnyObject() -> Any {
+              return ["content": content, "setTime": setTime]
     }
     
     
