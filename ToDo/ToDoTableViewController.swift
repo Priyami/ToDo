@@ -16,8 +16,7 @@ class ToDoTableViewController: UITableViewController {
     var dbRef:FIRDatabaseReference!
     var todos  = [ToDo]()
     
-    var selectedRowText: String?
-    var selectedRowSubText: String?
+    
     
 
     override func viewDidLoad() {
@@ -25,8 +24,8 @@ class ToDoTableViewController: UITableViewController {
        
         
        
-       dbRef = FIRDatabase.database().reference().child("todo-items")
-        startObservingDB()
+       dbRef = FIRDatabase.database().reference().child("todo-list")
+       startObservingDB()
     }
    
     
@@ -38,7 +37,8 @@ class ToDoTableViewController: UITableViewController {
     }
 
     
-    func startObservingDB() {
+    func startObservingDB()  {
+      
         dbRef.observe(.value, with: {(snapshot:FIRDataSnapshot) in
             var newTodo = [ToDo]()
             for todo in snapshot.children {
@@ -54,14 +54,14 @@ class ToDoTableViewController: UITableViewController {
     }
 
     
-    
-    
-    
-    @IBAction func presentTaskView(_ sender: AnyObject) {
+    @IBAction func newTaskView(_ sender: Any) {
         
-        
-        performSegue(withIdentifier: "TaskVC", sender: nil)
+        performSegue(withIdentifier: "NewTaskAdded", sender: nil)
     }
+    
+    
+    
+   
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todos.count
     }
@@ -87,46 +87,29 @@ class ToDoTableViewController: UITableViewController {
     }
     
  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-             print(indexPath.row)
-    let todo = todos[indexPath.row]
-        print(todo.content)
-        print(todo.setTime)
-        self.selectedRowText = todo.content
-         self.selectedRowSubText = todo.setTime
-     _ = tableView.indexPathForSelectedRow!
-    if let _ = tableView.cellForRow(at: indexPath){
+    
+    
+    
+      performSegue(withIdentifier: "TaskVC", sender: indexPath)
+    }
+  
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-      performSegue(withIdentifier: "TaskVC", sender: self)
-    }
-    }
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    
-    
-      if  (segue.identifier! == "TaskVC"&&(self.tableView.indexPathForSelectedRow) != nil) {
+        if segue.identifier == "TaskVC" {
+            if let indexPath = sender as? NSIndexPath {
+                
+                let todokey = todos[indexPath.row].key
+                if let controller = segue.destination as? TaskViewController{
+                    controller.taskKey = todokey!
+                }
+                else{
+                    
+                }
+            }
+        }
        
-        if let guest = segue.destination as? TaskViewController{
-            let path = self.tableView.indexPathForSelectedRow
-            let cell = self.tableView.cellForRow(at: path!)
-        
-          guest.selectedTitle = cell?.textLabel?.text
-            guest.selectedSubTitle = cell?.detailTextLabel?.text
-        }
-      }else {
-        if let guest = segue.destination as? TaskViewController{
-            //let path = self.tableView.indexPathForSelectedRow
-            //let cell = self.tableView.cellForRowAtIndexPath(path!)
-            
-            guest.selectedTitle = " "
-            guest.selectedSubTitle = " "
-        }
-    }
-    }
-    
+}
 
-
-
-    
-   
 
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

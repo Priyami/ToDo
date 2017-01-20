@@ -23,7 +23,7 @@ struct ToDo{
         self.key = key
         self.content = content
         self.setTime = setTime
-       // self.addedByUser = addedByUser
+       
         self.itemRef = nil
         
     }
@@ -55,7 +55,7 @@ struct ToDo{
     }
     
     func toAnyObject() -> Any {
-              return ["content": content, "setTime": setTime]
+        return ["content": content, "setTime": setTime]
     }
     
     

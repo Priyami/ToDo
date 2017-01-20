@@ -23,6 +23,7 @@
 		F44B5CB41E23FA35001538A8 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44B5CB31E23FA35001538A8 /* TaskViewController.swift */; };
 		F468E46F1E253C1F0073E0B0 /* LocalNotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468E46E1E253C1F0073E0B0 /* LocalNotificationHelper.swift */; };
 		F47780751E20841B00E48B11 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47780741E20841B00E48B11 /* User.swift */; };
+		F48CC2CC1E326FAC0063AAB0 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48CC2CB1E326FAC0063AAB0 /* AddTaskViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		F44B5CB31E23FA35001538A8 /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		F468E46E1E253C1F0073E0B0 /* LocalNotificationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotificationHelper.swift; sourceTree = "<group>"; };
 		F47780741E20841B00E48B11 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F48CC2CB1E326FAC0063AAB0 /* AddTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddTaskViewController.swift; path = ../AddTaskViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 				F41C94B41E208722008CB3D3 /* ToDoTableViewController.swift */,
 				F44B5CB31E23FA35001538A8 /* TaskViewController.swift */,
 				F468E46E1E253C1F0073E0B0 /* LocalNotificationHelper.swift */,
+				F48CC2CB1E326FAC0063AAB0 /* AddTaskViewController.swift */,
 			);
 			path = ToDo;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F407E9431E207A910099B4B2 /* ToDo.xcdatamodeld in Sources */,
+				F48CC2CC1E326FAC0063AAB0 /* AddTaskViewController.swift in Sources */,
 				F407E93B1E207A910099B4B2 /* AppDelegate.swift in Sources */,
 				F47780751E20841B00E48B11 /* User.swift in Sources */,
 				F468E46F1E253C1F0073E0B0 /* LocalNotificationHelper.swift in Sources */,

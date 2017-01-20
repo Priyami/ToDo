@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES" initialViewController="YFa-jg-d35">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES" initialViewController="YFa-jg-d35">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Psh-XQ-0hS" id="3cX-dv-M5W">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oX0-te-AER">
@@ -49,7 +49,8 @@
                         <barButtonItem key="leftBarButtonItem" title="Login" id="Wkq-lE-ZW2"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="6dW-ve-JOD">
                             <connections>
-                                <action selector="presentTaskView:" destination="vUj-31-Zbb" id="XHn-Np-wIx"/>
+                                <action selector="newTaskView:" destination="vUj-31-Zbb" id="IIs-g4-UbU"/>
+                                <segue destination="WTn-FF-PIr" kind="push" identifier="NewTask" id="KMf-fl-mQ7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -59,7 +60,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8gT-Q4-eeb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="19" y="1238"/>
+            <point key="canvasLocation" x="-232" y="-642"/>
         </scene>
         <!--Task View Controller-->
         <scene sceneID="K1U-rN-1ub">
@@ -69,7 +70,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="center" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="YqO-2E-YJT">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="center" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Remain Me" textAlignment="natural" minimumFontSize="17" id="YqO-2E-YJT">
                                 <rect key="frame" x="147" y="97" width="153" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -112,9 +113,9 @@
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="43R-Zs-nzv">
                                 <rect key="frame" x="110" y="232" width="120" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add Task"/>
+                                <state key="normal" title="Update"/>
                                 <connections>
-                                    <action selector="addTask:" destination="8pT-pD-G2W" eventType="touchUpInside" id="FIu-0x-1pV"/>
+                                    <action selector="UpdateTask:" destination="8pT-pD-G2W" eventType="touchUpInside" id="Dn7-Su-n5c"/>
                                     <segue destination="vUj-31-Zbb" kind="push" identifier="List" id="hJK-3X-Lpm"/>
                                 </connections>
                             </button>
@@ -132,7 +133,82 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iWc-UQ-Ryy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="255" y="1130"/>
+            <point key="canvasLocation" x="278" y="181"/>
+        </scene>
+        <!--Add Task View Controller-->
+        <scene sceneID="8Ve-jx-HUS">
+            <objects>
+                <viewController id="WTn-FF-PIr" customClass="AddTaskViewController" customModule="ToDo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nFL-Wg-5AB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="center" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Get Ready!" textAlignment="natural" minimumFontSize="17" id="Ztv-6n-Krg">
+                                <rect key="frame" x="147" y="82" width="153" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Task Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Zf5-hs-ziW">
+                                <rect key="frame" x="11" y="85" width="128" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Remind Me at" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Fj-wF-mb5">
+                                <rect key="frame" x="16" y="137" width="105" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="vO7-6b-Ttq">
+                                <rect key="frame" x="147" y="134" width="153" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="showAddPicker:" destination="WTn-FF-PIr" eventType="touchDown" id="vcI-vG-Toq"/>
+                                    <action selector="showPicker:" destination="8pT-pD-G2W" eventType="touchDown" id="1cy-OK-7ic"/>
+                                </connections>
+                            </textField>
+                            <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="EeO-YM-w4a">
+                                <rect key="frame" x="0.0" y="317" width="375" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <date key="date" timeIntervalSinceReferenceDate="505687320.97593498">
+                                    <!--2017-01-09 20:42:00 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="addDatePicker:" destination="WTn-FF-PIr" eventType="valueChanged" id="nh0-v2-2Fz"/>
+                                    <action selector="datePickerAction:" destination="8pT-pD-G2W" eventType="valueChanged" id="EKO-ly-2i3"/>
+                                </connections>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="IPS-I5-9mS">
+                                <rect key="frame" x="110" y="217" width="120" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add Task"/>
+                                <connections>
+                                    <action selector="addNewTask:" destination="WTn-FF-PIr" eventType="touchUpInside" id="gRw-AF-dhy"/>
+                                    <action selector="addTask:" destination="8pT-pD-G2W" eventType="touchUpInside" id="Qsq-wc-ywJ"/>
+                                    <segue destination="vUj-31-Zbb" kind="push" identifier="NewTaskAdded" id="aQJ-pR-uZc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ezB-qh-xzF"/>
+                    <connections>
+                        <outlet property="addPicker" destination="EeO-YM-w4a" id="yck-2b-M9B"/>
+                        <outlet property="addSetTime" destination="vO7-6b-Ttq" id="gZJ-6K-qeh"/>
+                        <outlet property="addTaskButton" destination="IPS-I5-9mS" id="sg4-gG-4Cw"/>
+                        <outlet property="addTaskDesc" destination="Ztv-6n-Krg" id="OCJ-TM-jME"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c0P-DI-DHN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="278" y="-719"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EUj-mC-TIG">
@@ -151,7 +227,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vEr-AP-Z01" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-354" y="1394"/>
+            <point key="canvasLocation" x="-677" y="-66"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -46,6 +46,8 @@ class LocalNotificationHelper: NSObject {
     }
     
     func scheduleLocal(_ taskTypeId: String, alertDate: Date){
+        
+        //Notification sets for task in particular date & time
        
         print("Date and Time Came\(alertDate)")
         let notification = UILocalNotification()
@@ -55,13 +57,14 @@ class LocalNotificationHelper: NSObject {
         notification.soundName = UILocalNotificationDefaultSoundName
         notification.userInfo = ["taskObjeckId": taskTypeId]
         UIApplication.shared.scheduleLocalNotification(notification)
-        UIApplication.shared.applicationIconBadgeNumber = badgeCount +  1
-        print("Notification set for taskTypeId: \(taskTypeId) at \(alertDate)")
-        
-        
+        UIApplication.shared.applicationIconBadgeNumber = badgeCount + 1
+       
+
     }
     
     func removeNotification(_ taskTypeId: String){
+        
+        //Notification Removes for the task
         
         for notification in UIApplication.shared.scheduledLocalNotifications! as
             [UILocalNotification]{

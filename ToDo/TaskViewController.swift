@@ -12,25 +12,20 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class TaskViewController: UIViewController{
-    var selectedTitle:String?
-    var selectedSubTitle:String?
- var dbRef:FIRDatabaseReference!
+    var taskKey = ""
+    
+    var dbRef:FIRDatabaseReference!
     var todos  = [ToDo]()
     
     @IBOutlet var TaskView: UIView!
    
-
-   
     @IBOutlet var setTime: UITextField!
     
-    
     @IBOutlet var taskDesc: UITextField!
-   
-    
        
     @IBOutlet var addButton: UIButton!
     @IBOutlet var picker: UIDatePicker!
-    var data = Date()
+    
     @IBAction func datePickerAction(_ sender: AnyObject) {
         
         let  dateFormatter = DateFormatter()
@@ -48,36 +43,48 @@ class TaskViewController: UIViewController{
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        picker.isHidden = true
-        
-        taskDesc.text = selectedTitle
-        self.setTime.text = selectedSubTitle
-        dbRef = FIRDatabase.database().reference().child("todo-items")
-
-        
-        
         // Do any additional setup after loading the view.
+        
+        //To Update the existing Task using Task Key
+        
+        dbRef = FIRDatabase.database().reference().child("todo-list")
+      
+        dbRef.child(taskKey).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            self.taskDesc.text = value?["content"] as! String?
+            self.setTime.text = value?["setTime"] as! String?
+            //print(snapshot.key)
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+
+       
     }
 
-    @IBAction func addTask(_ sender: AnyObject) {
+    @IBAction func UpdateTask(_ sender: AnyObject) {
+        
+        //Update the Task in Firebase & Set the Notification
         
         let todoContent = taskDesc.text
-        //let todoUser = createdBy.text
+       
         let reminderTime = setTime.text
         
-            let todo = ToDo(content: todoContent!,setTime: reminderTime! )
-            let todoRef = self.dbRef.child(todoContent!.lowercased())
-            todoRef.setValue(todo.toAnyObject())
+        let todo = ToDo(content: todoContent!,setTime: reminderTime! )
+            let todoRef = dbRef.child(taskKey)
+        todoRef.setValue(todo.toAnyObject())
       
         
         let taskTypeId:String = taskDesc.text!
-        
         notificationSetter(addButton, taskTypeId: taskTypeId, fireDate: fixNotificationDate(picker.date))
         
            }
     
     
     fileprivate func notificationSetter(_ sender: UIButton, taskTypeId: String, fireDate: Date){
+        
+        //Notificaction Initiates
         
         if sender.isTouchInside == true{
             
@@ -102,6 +109,8 @@ class TaskViewController: UIViewController{
     
     func fixNotificationDate(_ dateToFix: Date) ->Date{
         
+        //The Date Fix - UTC
+        
         let calendar: Calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         var dateFire = Date()
         var fireComponents = (calendar as NSCalendar).components([.day,.month,.year,.hour,.minute], from: dateToFix)
@@ -114,6 +123,8 @@ class TaskViewController: UIViewController{
     
     
     fileprivate func displayNotificationDisabled(){
+        
+        //Notification Setup Disabled - Alert
         
         let alertController = UIAlertController(title: "Notifications disabled for ToDo App", message: "Please enable Notifications in Settings -> Notifications -? ToDo", preferredStyle: .alert)
         
